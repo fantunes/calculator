@@ -1,7 +1,9 @@
 "use client";
 
 import { type Operator, calc } from "@/utils/calc";
+import Image from "next/image";
 import { useState } from "react";
+import eelogo from "../public/equal-experts-logo-colour.png";
 
 export default function Home() {
   const [display, setDisplay] = useState(0);
@@ -30,8 +32,15 @@ export default function Home() {
     }
   };
 
+  const resetCalc = () => {
+    setDisplay(0);
+    setTotal(undefined);
+    setOperation(undefined);
+  };
+
   return (
     <main className="grid place-items-center">
+      <Image width={200} height={200} src={eelogo} alt="equal experts logo" />
       <div className="flex flex-col gap-2 w-96 h-96 p-5">
         <input
           type="number"
@@ -39,17 +48,8 @@ export default function Home() {
           value={display}
           className="text-black p-5 text-3xl"
         />
-        <p>{total || 0}</p>
         <div className="grid grid-cols-4 gap-2">
           <div className="grid grid-cols-3 col-span-3 gap-2">
-            <button
-              className="p-5 border bg-white text-lg text-black font-semibold"
-              onClick={(e) =>
-                setDisplay((prevValue) => Number(prevValue.toString() + 0))
-              }
-            >
-              0
-            </button>
             <button
               className="p-5 border bg-white text-lg text-black font-semibold"
               onClick={(e) =>
@@ -122,12 +122,26 @@ export default function Home() {
             >
               9
             </button>
+            <button
+              className="p-5 border col-start-2 bg-white text-lg text-black font-semibold"
+              onClick={(e) =>
+                setDisplay((prevValue) => Number(prevValue.toString() + 0))
+              }
+            >
+              0
+            </button>
           </div>
-          <div className="flex flex-col gap-2">
+          <div className="grid gap-2">
+            <button
+              className="bg-white text-black p-5 border-none text-lg font-semibold"
+              onClick={() => resetCalc()}
+            >
+              C
+            </button>
             <button
               className={`${
                 operation === "addition"
-                  ? "bg-purple-400 text-black shadow-inner shadow-gray-600"
+                  ? "bg-blue-400 text-black shadow-inner shadow-gray-600"
                   : "bg-white text-black"
               } p-5 border-none text-lg font-semibold`}
               onClick={() => handleOperations("addition")}
@@ -137,7 +151,7 @@ export default function Home() {
             <button
               className={`${
                 operation === "subtraction"
-                  ? "bg-purple-400 text-black shadow-inner shadow-gray-600"
+                  ? "bg-blue-400 text-black shadow-inner shadow-gray-600"
                   : "bg-white text-black"
               } p-5 border-none text-lg font-semibold`}
               onClick={() => handleOperations("subtraction")}
@@ -147,7 +161,7 @@ export default function Home() {
             <button
               className={`${
                 operation === "multiplication"
-                  ? "bg-purple-400 text-black shadow-inner shadow-gray-600"
+                  ? "bg-blue-400 text-black shadow-inner shadow-gray-600"
                   : "bg-white text-black"
               } p-5 border-none text-lg font-semibold`}
               onClick={() => handleOperations("multiplication")}
@@ -157,7 +171,7 @@ export default function Home() {
             <button
               className={`${
                 operation === "division"
-                  ? "bg-purple-400 text-black shadow-inner shadow-gray-600"
+                  ? "bg-blue-400 text-black shadow-inner shadow-gray-600"
                   : "bg-white text-black"
               } p-5 border-none text-lg font-semibold`}
               onClick={() => handleOperations("division")}
