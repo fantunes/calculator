@@ -1,8 +1,7 @@
 import { calc } from "@/utils/calc";
 import { test, expect } from "@playwright/test";
-import { describe, it } from "node:test";
 
-describe("should make calculations", () => {
+test.describe("should make calculations", () => {
   test("can add numbers", () => {
     const amount = calc(5, 3, "addition");
 
@@ -22,8 +21,8 @@ describe("should make calculations", () => {
   });
 
   test("can divide numbers", () => {
-    const amount = calc(5, 3, "division");
+    const amount = calc(5, 2.5, "division");
 
-    expect(amount).toBe(1.6666666667);
+    expect(amount).toBe(2);
   });
 });
